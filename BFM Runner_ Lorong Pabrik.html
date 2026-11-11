@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BFM Runner: Lorong Pabrik</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3EEFF;--card:#fff;--ink:#1A1033;--mute:#5B4B85;--bd:#1A1033;--sh:#1A1033;--dot:#D7C9FF;--pu:#7C3AED;--pk:#FF4FA3;--li:#C8FF3D;--cy:#29D8F2;--ye:#FFD93D;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#150D2E;--card:#231650;--ink:#F6F1FF;--mute:#B9A9E6;--bd:#A78BFA;--sh:#7C3AED;--dot:#2B1B5E}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#150D2E;--card:#231650;--ink:#F6F1FF;--mute:#B9A9E6;--bd:#A78BFA;--sh:#7C3AED;--dot:#2B1B5E}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;background:var(--bg) radial-gradient(var(--dot) 1.5px,transparent 1.5px) 0 0/18px 18px}
+main{max-width:620px;margin:0 auto;padding:14px 14px 28px}
+h1,h2,h3{font-family:Poppins,Inter,sans-serif;line-height:1.2;margin:.2em 0 .4em}
+h1{font-size:2.2rem;font-weight:800}h2{font-size:1.25rem}h3{font-size:1.05rem}
+p{margin:.4em 0}
+.card{background:var(--card);border:3px solid var(--bd);border-radius:18px;box-shadow:5px 5px 0 var(--sh);padding:16px;margin-bottom:14px}
+.hero{background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border-color:var(--ink);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.14) 0 10px,transparent 10px 20px)}
+.hero>*{position:relative}
+.scene{font-size:2rem;letter-spacing:.2em}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font:700 .9rem Poppins,sans-serif}
+.mute{border:3px solid var(--bd);background:var(--ye);color:#1A1033;border-radius:12px;padding:6px 12px;font:700 .85rem Poppins,sans-serif;cursor:pointer;box-shadow:3px 3px 0 var(--sh)}
+.btn{display:block;width:100%;border:3px solid #1A1033;background:var(--li);color:#1A1033;border-radius:14px;padding:14px;font:800 1.05rem Poppins,sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--sh);margin-top:10px}
+.btn.pk{background:var(--pk)}
+.btn:active,.mute:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--sh)}
+:focus-visible{outline:3px solid var(--cy);outline-offset:2px}
+input{width:100%;padding:13px 14px;border:3px solid var(--bd);border-radius:14px;background:var(--card);color:var(--ink);font:600 1rem Inter,sans-serif;margin:8px 0}
+.note{font-size:.82rem;color:var(--mute)}
+.why{background:var(--ye);color:#1A1033;border-color:#1A1033;font-weight:600}
+ol.rl{padding-left:1.2em;margin:.4em 0}ol.rl li{margin:.35em 0}
+.hud{margin-bottom:12px}
+.r1{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.chip{border:3px solid var(--bd);background:var(--card);border-radius:12px;padding:4px 10px;font:700 .85rem Poppins,sans-serif}
+.chip.hot{background:var(--pk);color:#1A1033}
+.r1 .mute{margin-left:auto}
+.r2{display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:16px;border:3px solid var(--bd);border-radius:10px;background:var(--card);overflow:hidden}
+.bar i{display:block;height:100%;background:repeating-linear-gradient(45deg,var(--li) 0 8px,var(--cy) 8px 16px);transition:width .5s}
+.r2 b{font:800 .95rem Poppins,sans-serif;min-width:3.2em;text-align:right}
+.lvl{background:linear-gradient(90deg,var(--pu),var(--cy));color:#fff}
+.lvl p{margin:0;font-size:.9rem}
+.qn{font-size:.8rem;color:var(--mute);font-weight:600}
+.opts{display:grid;gap:10px;margin-bottom:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;border:3px solid var(--bd);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font:500 1rem Inter,sans-serif;cursor:pointer;box-shadow:4px 4px 0 var(--sh)}
+.lt{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pu);color:#fff;display:grid;place-items:center;font:700 .9rem Poppins,sans-serif}
+.opt.ok{background:var(--li);color:#1A1033;border-color:#1A1033}
+.opt.no{background:var(--pk);color:#1A1033;border-color:#1A1033}
+.opt:disabled{cursor:default}
+.hb{background:transparent;border:3px dashed var(--bd);color:var(--ink);border-radius:12px;padding:8px 12px;font:600 .9rem Inter,sans-serif;cursor:pointer;margin-bottom:10px}
+.hb:disabled{opacity:.6;cursor:default}
+.hint{background:var(--cy);color:#1A1033;border-color:#1A1033;font-weight:600}
+.fb.g{background:var(--li);color:#1A1033;border-color:#1A1033}
+.fb.b{background:var(--pk);color:#1A1033;border-color:#1A1033}
+.mid{text-align:center}.big{font-size:4rem;line-height:1.1}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;margin:8px auto;border:3px solid var(--bd)}
+.ring>div{width:116px;height:116px;border-radius:50%;background:var(--card);display:grid;place-content:center;text-align:center}
+.ring b{font:800 1.8rem Poppins,sans-serif;line-height:1.1}.ring small{color:var(--mute)}
+.st{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.st div{border:3px solid var(--bd);border-radius:12px;padding:8px;text-align:center;background:var(--card)}
+.st b{display:block;font:800 1.3rem Poppins,sans-serif}.st span{font-size:.8rem;color:var(--mute)}
+.bg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.bd{border:3px solid var(--bd);border-radius:14px;padding:10px;text-align:center;background:var(--ye);color:#1A1033}
+.bd.lk{background:var(--card);color:var(--mute);border-style:dashed;filter:grayscale(1);opacity:.75}
+.bd span{font-size:1.8rem;display:block}.bd b{font:700 .85rem Poppins,sans-serif;display:block}.bd small{display:block;font-size:.75rem}
+details{border:3px solid var(--bd);border-radius:12px;padding:8px 12px;margin:8px 0;background:var(--card)}
+summary{cursor:pointer;font-weight:600}
+details p{font-size:.92rem}
+footer{text-align:center;font-size:.82rem;color:var(--mute);padding:6px 0 4px;font-weight:600}
+.bub{display:flex;gap:12px;align-items:flex-start;margin-top:8px}
+.av{flex:none;width:46px;height:46px;border-radius:50%;background:var(--pu);display:grid;place-items:center;font-size:1.5rem;border:3px solid var(--bd)}
+.bub b{font:700 .9rem Poppins,sans-serif}.bub p{margin:.15em 0 0}
+.ask{font:700 .95rem Poppins,sans-serif;margin:4px 2px 8px}
+.met{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.met small{display:block;font-size:.7rem;color:var(--mute);font-weight:600;margin-bottom:2px}
+.mb{height:10px;border:2px solid var(--bd);border-radius:8px;background:var(--card);overflow:hidden}
+.mb i{display:block;height:100%;transition:width .5s}
+.imp{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chp{border:2px solid #1A1033;border-radius:10px;padding:2px 8px;font:700 .78rem Poppins,sans-serif;background:#fff;color:#1A1033}
+.opt.mid{background:var(--ye);color:#1A1033;border-color:#1A1033}
+.fb.m{background:var(--ye);color:#1A1033;border-color:#1A1033}
+.cv{border:3px solid var(--bd);border-radius:18px;box-shadow:5px 5px 0 var(--sh);overflow:hidden;margin-bottom:12px;background:#1A0B3D}
+canvas{display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+.row{display:flex;gap:8px;margin-bottom:10px;align-items:stretch}.row>*{flex:1}
+.row .hb{margin:0}
+.btn.sm{padding:10px;font-size:.95rem;margin-top:0}
+.opt.on{outline:3px solid var(--cy);outline-offset:1px}
+@media(min-width:700px){body{font-size:17px}.opt{font-size:1.05rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<div id="stage"></div>
+<footer>Education &amp; Training Dept. © 2026</footer>
+</main>
+<script>
+(()=>{
+/* ===== AUDIO (Web Audio API, tanpa file) ===== */
+let AC,mg,bg,sg,NB,muted=false,tmr,step=0,nextT=0;
+const mf=m=>440*Math.pow(2,(m-69)/12);
+const BASS=[110,87.31,130.81,98],CH=[[57,60,64],[53,57,60],[60,64,67],[55,59,62]];
+function au(){
+  if(!AC){
+    AC=new (window.AudioContext||window.webkitAudioContext)();
+    mg=AC.createGain();mg.connect(AC.destination);
+    bg=AC.createGain();bg.gain.value=muted?0:.22;bg.connect(mg);
+    sg=AC.createGain();sg.gain.value=.35;sg.connect(mg);
+    NB=AC.createBuffer(1,AC.sampleRate,AC.sampleRate);
+    const d=NB.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  }
+  if(AC.state==="suspended")AC.resume();
+}
+function tn(f,t,d,ty,v,to,dst){
+  dst=dst||sg;const o=AC.createOscillator(),g=AC.createGain();
+  o.type=ty;o.frequency.setValueAtTime(f,t);
+  if(to)o.frequency.exponentialRampToValueAtTime(to,t+d);
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);
+  o.connect(g);g.connect(dst);o.start(t);o.stop(t+d+.02);
+}
+function nz(t,d,v,fq){
+  const s=AC.createBufferSource();s.buffer=NB;
+  const f=AC.createBiquadFilter();f.type="highpass";f.frequency.value=fq;
+  const g=AC.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);
+  s.connect(f);f.connect(g);g.connect(bg);s.start(t);s.stop(t+d);
+}
+function sched(){
+  const sp=60/112/4;
+  while(nextT<AC.currentTime+.25){
+    const s=step%64,b=s>>4,k=s&15,t=nextT;
+    if(k%4===0)tn(160,t,.16,"sine",1,42,bg);
+    if(k===4||k===12)nz(t,.12,.5,1500);
+    if(k%2===1)nz(t,.04,.18,7000);
+    if(k%4===0||k===6||k===10)tn(BASS[b],t,sp*2.6,"triangle",.8,0,bg);
+    if(k%2===0)tn(mf(CH[b][(k>>1)%3]+12),t,sp*1.6,"square",.12,0,bg);
+    if(k===0||k===8)tn(mf(CH[b][0]+24),t,sp*7,"sine",.1,0,bg);
+    step++;nextT+=sp;
+  }
+}
+function music(){au();if(tmr)return;nextT=AC.currentTime+.1;tmr=setInterval(sched,50)}
+function P(a,gap,ty,d,v){au();const t=AC.currentTime;a.forEach((f,j)=>tn(f,t+j*gap,d,ty,v))}
+const sfx={
+  clk:()=>P([520],0,"square",.06,.18),
+  ok:()=>P([523,659,784,1047],.07,"triangle",.18,.5),
+  no:()=>{au();const t=AC.currentTime;tn(220,t,.3,"sawtooth",.3,90);tn(165,t+.15,.35,"sawtooth",.3,70)},
+  hint:()=>P([880,1175],.09,"sine",.15,.4),
+  combo:()=>P([659,784,988,1319,1568],.05,"square",.12,.3),
+  badge:()=>P([392,523,659,784,1047],.1,"triangle",.3,.5),
+  go:()=>P([262,330,392,523,659,784],.06,"square",.12,.25),
+  win:()=>P([523,659,784,1047,1319],.12,"triangle",.4,.5),
+  lose:()=>P([392,330,262],.18,"sine",.4,.4)
+};
+document.addEventListener("visibilitychange",()=>{if(AC)document.hidden?AC.suspend():AC.resume()});
+const muteBtn=()=>`<button class="mute" aria-pressed="${muted}">${muted?"🔇 Musik mati":"🔊 Musik nyala"}</button>`;
+function bindMute(){
+  document.querySelectorAll(".mute").forEach(b=>b.onclick=()=>{
+    muted=!muted;au();bg.gain.setTargetAtTime(muted?0:.22,AC.currentTime,.05);
+    document.querySelectorAll(".mute").forEach(x=>{x.textContent=muted?"🔇 Musik mati":"🔊 Musik nyala";x.setAttribute("aria-pressed",muted)});
+  });
+}
+
+/* ===== DATA SKENARIO (branching) ===== */
+const Mt={s:"Sales",p:"PNL",m:"Mutu",d:"Distribusi"},MC={s:"var(--cy)",p:"var(--ye)",m:"var(--pk)",d:"var(--li)"};
+const TI=[{n:"Berisiko",e:"⚠️",c:"b"},{n:"Cukup aman",e:"👍",c:"m"},{n:"Keputusan tajam",e:"⚡",c:"g"}];
+const NXT={"2a":"3","2b":"3","3":"4","4":"5","5":"6","6":"7"};
+const SC={
+"1":{k:"Prioritas",tm:"06:10",at:"📱",who:"Pak Dimas, PPC",say:"Bos, tiga hal masuk sekaligus: mixer utama mati, rekap absensi tiga shift menumpuk, dan HO minta evaluasi PNL sebelum siang.",
+ ch:[
+ {t:"Turun ke produksi dulu, pastikan mixer ditangani dan teknisi dieskalasi. Evaluasi PNL kujadwalkan di RKB, rekap absensi kudelegasikan.",ti:2,fx:{d:8,p:4},go:"2a",r:"Mixer ditangani teknisi dalam 30 menit. Evaluasi PNL masuk RKB dengan PIC jelas dan absensi dikerjakan admin."},
+ {t:"Fokus tangani mixer saja. Yang lain nanti kalau sempat.",ti:1,fx:{d:5,p:-2},go:"2a",r:"Mixer pulih, tapi HO menelepon dua kali dan rekap absensi makin menumpuk."},
+ {t:"Balas HO dulu dan kerjakan evaluasi PNL sekarang. Mixer biar teknisi urus sendiri.",ti:0,fx:{d:-10,s:-5},go:"2b",r:"Mixer terbengkalai satu jam. Produksi roti manis tertinggal dan truk mulai menunggu."}],
+ l:"Penting dan mendesak dikerjakan segera, penting tapi tidak mendesak dijadwalkan di RKB, rutin didelegasikan sesuai kewenangan.",h:"Pisahkan dulu: mana yang menghentikan produksi sekarang?"},
+"2a":{k:"Batch tanpa bukti",tm:"08:00",at:"🔬",who:"Bu Sari, QCA",say:"Batch roti tawar siap kirim dan truk sudah merapat. Tapi kode batch di sebagian kemasan kurang jelas dan catatan inspeksi belum lengkap.",
+ ch:[
+ {t:"Kirim dulu, label diperbaiki di DC.",ti:0,fx:{m:-12,d:2},r:"Dua cabang menerima produk yang sulit ditelusuri. Risiko penarikan batch naik."},
+ {t:"Tahan sesuai kewenangan, minta label dan catatan dilengkapi, eskalasi ke QCA Manager bila perlu.",ti:2,fx:{m:10,d:-2},r:"Terlambat 20 menit, tapi batch aman dan bisa ditelusuri sampai ke cabang."},
+ {t:"Kirim hanya batch yang labelnya jelas, sisanya ditahan.",ti:1,fx:{m:4,d:2},r:"Sebagian terkirim tepat waktu, tapi catatan inspeksi batch yang dikirim belum kamu pastikan lengkap."}],
+ l:"Release tanpa bukti adalah red flag QCA. Tahan atau lepas mengikuti kewenangan dan bukti pemeriksaan, eskalasi bila ada temuan.",h:"Mutu dan traceability tidak boleh dikorbankan demi jam kirim."},
+"2b":{k:"Truk menunggu",tm:"08:30",at:"🚚",who:"Rian, Factory Support",say:"Truk sudah ngetem 45 menit. DC menelepon: rak roti di toko mulai kosong. Produksi baru separuh jalan.",
+ ch:[
+ {t:"Tahan semua pengiriman sampai produksi selesai penuh.",ti:1,fx:{d:-6,s:-3},r:"Mutu aman, tapi toko kosong lebih lama dan cabang mulai mengeluh."},
+ {t:"Minta Production mengebut semua item tanpa cek mutu.",ti:0,fx:{m:-12,p:-4},r:"Kecepatan naik, tapi tekstur dan berat roti tidak konsisten. Reject mulai muncul."},
+ {t:"Beri DC estimasi jelas, minta Production dan PPC dahulukan item terlaris, kirim bertahap dengan PIC yang jelas.",ti:2,fx:{d:8,s:3},r:"DC mendapat kepastian. Item terlaris berangkat lebih dulu dan sisanya menyusul."}],
+ l:"Saat ada hambatan, komunikasikan prioritas dan tindak lanjut ke seluruh tim. Telusuri titik hambat dari data dan waktu proses, bukan asumsi.",h:"Pilih yang menjaga mutu sekaligus memberi kepastian."},
+"3":{k:"Analisis retur",tm:"10:30",at:"📊",who:"Data retur (simulasi)",say:"Kontribusi retur minggu ini, data simulasi untuk pembelajaran: Cabang A 30%, B 25%, C 18%, D 12%, E 9%, F 6%. Waktumu hanya cukup untuk dua kunjungan.",
+ ch:[
+ {t:"Kunjungi A dan B dengan data retur, lalu jadwalkan C dan D di kunjungan berikutnya.",ti:2,fx:{s:10,p:3},r:"Dua cabang itu menyumbang lebih dari separuh retur. Temuan dan PIC langsung tercatat."},
+ {t:"Datangi keenam cabang sebentar-sebentar supaya adil.",ti:0,fx:{s:-6,p:-4},r:"Waktumu habis di jalan. Tidak ada cabang yang diselidiki mendalam."},
+ {t:"Kunjungi A dan E karena rutenya searah.",ti:1,fx:{s:3},r:"A tertangani, tapi B yang kontribusinya besar belum tersentuh."}],
+ l:"Pareto 80/20: sedikit cabang menyumbang porsi besar retur. Urutkan dari terbesar, tandai titik 80%, lalu pilih tindakan.",h:"Urutkan dari kontribusi terbesar."},
+"4":{k:"Stok fisik vs sistem",tm:"13:00",at:"📦",who:"Pak Dimas, PPC",say:"PB malam sudah masuk, tapi stok tepung di sistem 120 sak sedangkan hitungan fisik gudang 105 sak (angka simulasi). Produksi besok memakai tepung itu.",
+ ch:[
+ {t:"Ikuti angka fisik dan minta gudang membereskan sistem nanti.",ti:1,fx:{p:2},r:"Rencana aman untuk besok, tapi selisihnya belum ditelusuri dan bisa terulang."},
+ {t:"Telusuri kartu stok dan mutasi bersama PPC, koreksi stok, lalu sesuaikan rencana produksi.",ti:2,fx:{p:8,d:4},r:"Selisih ketemu: satu penerimaan belum diinput. Stok dikoreksi dan rencana produksi disesuaikan."},
+ {t:"Ikuti angka sistem, produksi jalan seperti biasa.",ti:0,fx:{p:-8,d:-4},r:"Besok tepung habis di tengah shift dan produksi berhenti."}],
+ l:"Stok fisik dan sistem harus sinkron. Telusuri bukti (kartu stok dan mutasi), koreksi, lalu komunikasikan perubahan ke PPC.",h:"Bukti apa yang bisa kamu telusuri?"},
+"5":{k:"Promo produk baru",tm:"15:00",at:"📞",who:"HO Marketing",say:"Promo produk baru ingin mulai lusa. Padahal slot mesin trial belum ada dan bahan belum terkonfirmasi.",
+ ch:[
+ {t:"Tolak promo sampai semua bukti lengkap, tanpa tawaran jadwal.",ti:1,fx:{s:-2,m:4},r:"Mutu aman, tapi HO kecewa karena tidak ada alternatif tanggal."},
+ {t:"Setuju saja agar HO senang, nanti disesuaikan.",ti:0,fx:{s:-6,m:-8,d:-6},r:"Promo tayang saat pabrik belum siap. Stok kosong dan trial dikebut tanpa verifikasi."},
+ {t:"Lindungi slot kapasitas, minta bukti readiness, eskalasi konflik prioritas, dan usul tanggal promo yang realistis.",ti:2,fx:{s:8,m:6,d:4},r:"HO setuju tanggal baru. Slot trial dan bahan terkonfirmasi sebelum promosi berjalan."}],
+ l:"Hindari promosi bergerak saat kesiapan operasi belum jelas. BFM melindungi slot kapasitas, meminta bukti readiness, dan mengeskalasi konflik prioritas.",h:"Promosi jangan mendahului kesiapan."},
+"6":{k:"Coaching",tm:"16:00",at:"👤",who:"Production Manager",say:"Reject roti manis shift 2 naik tiga hari berturut-turut (data simulasi). Production Manager terlihat defensif dan melipat tangan.",
+ ch:[
+ {t:"Reject naik tiga hari berturut-turut dan menekan pengiriman besok. Menurutmu hambatan utamanya apa? Mari kita cari perbaikannya bersama.",ti:2,fx:{m:8,p:4},r:"Dia mulai bercerita soal setting oven yang bergeser. Kalian sepakat langkah perbaikan."},
+ {t:"Reject naik, tolong cari tahu dan laporkan besok.",ti:1,fx:{m:2},r:"Dia menyanggupi, tapi tidak jelas apa yang dicek, kapan, dan buktinya apa."},
+ {t:"Shift kamu ceroboh terus, perbaiki sekarang.",ti:0,fx:{m:-6,p:-3},r:"Dia diam dan makin defensif. Percakapan buntu."}],
+ l:"Coaching empat langkah: data/fakta, dampak, solusi bersama, komitmen dan waktu. Fokus pada perilaku dan proses, bukan menyerang pribadi.",h:"Mulai dari data, lalu ajak gali solusi."},
+"7":{k:"Tutup hari",tm:"17:00",at:"📝",who:"Kamu, menulis rekap",say:"Hari hampir selesai. Kamu menulis rekap untuk besok. Rekap seperti apa yang kamu tinggalkan?",
+ ch:[
+ {t:"Rekap singkat: hari ini aman. Detailnya diingat saja.",ti:0,fx:{p:-4,d:-4},r:"Besok tidak ada yang tahu siapa mengerjakan apa. Dua isu terlewat."},
+ {t:"Tulis keputusan hari ini lengkap: PIC, deadline, bukti selesai, dan jadwal follow-up tiap isu.",ti:2,fx:{s:4,p:4,m:4,d:4},r:"Besok pagi semua tim langsung tahu prioritas dan batas waktunya."},
+ {t:"Tulis daftar isu dan PIC saja.",ti:1,fx:{p:2},r:"Cukup membantu, tapi tanpa deadline dan bukti, follow-up sulit dicek."}],
+ l:"Setiap keputusan dan kunjungan harus berakhir dengan ringkasan, PIC, deadline, bukti, dan jadwal follow-up yang jelas.",h:"Apa yang membuat tindak lanjut bisa dicek orang lain?"}
+};
+const BADGES=[
+ {e:"🌗",n:"Setengah Hari",d:"Capai keputusan ke-4"},
+ {e:"🏁",n:"Hari Tuntas",d:"Selesaikan 7 keputusan"},
+ {e:"⚡",n:"Tajam",d:"5 keputusan tajam"},
+ {e:"🔥",n:"Combo King",d:"3 keputusan tajam beruntun"},
+ {e:"🧠",n:"Zero Hint",d:"Tamat tanpa hint"},
+ {e:"🧭",n:"Penjelajah Jalur",d:"Main ulang dan ambil jalur pagi yang berbeda"}
+];
+
+/* ===== STATE & UTIL ===== */
+BADGES.push({e:"🏃",n:"Pelari Bersih",d:"Tamat tanpa menabrak red flag"});
+let name="",n,pts,streak,maxS,sharp,hints,coins,hits,mt,log,route="";
+const paths=new Set();
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const view=h=>{$("#stage").innerHTML=h;window.scrollTo(0,0);bindMute()};
+const topbar=()=>`<div class="top"><span>🏃 BFM Runner</span>${muteBtn()}</div>`;
+const mets=()=>`<div class="met">${Object.keys(Mt).map(k=>`<div><small>${Mt[k]}</small><div class="mb"><i id="m_${k}" style="width:${mt[k]}%;background:${MC[k]}"></i></div></div>`).join("")}</div>`;
+
+/* ===== 1. GATEWAY ===== */
+function gate(){
+  view(`${topbar()}<div class="card hero"><div class="scene">🏃💨🏭</div><h1>BFM Runner</h1><h3>Lorong Pabrik Mr. Bread</h3><p>Lari, hindari red flag, dan ambil keputusan di setiap gerbang. Sekitar 4 menit.</p></div>
+  <div class="card"><h3>Siapa nama kamu, BFM?</h3><input id="nm" placeholder="Tulis namamu di sini" maxlength="40" autocomplete="off" value="${esc(name)}"><p class="note" id="hint"></p><button class="btn" id="go">Lanjut ke briefing</button></div>`);
+  $("#go").onclick=()=>{
+    const v=$("#nm").value.trim();
+    if(!v){$("#hint").textContent="Isi nama dulu untuk lanjut.";$("#nm").focus();return}
+    name=v;music();sfx.clk();brief();
+  };
+}
+
+/* ===== 2. MISSION BRIEFING ===== */
+function brief(){
+  view(`${topbar()}<div class="card hero"><div class="scene">📞🍞⏰</div><h2>Senin, 06.00. Briefing misi</h2><p>Halo, ${esc(name)}! Pabrik sudah berputar dan kamu harus bergerak. Lorong menuju ruang produksi penuh keputusan.</p></div>
+  <div class="card why"><h3>Kenapa ini penting?</h3><p>Di pabrik roti, waktu tidak menunggu: truk berangkat, mixer berputar, HO menelepon. Kamu tidak bisa berhenti berpikir sambil berdiam. Bisakah kamu memutuskan dengan cepat tapi tepat, sambil menghindari red flag di jalan?</p></div>
+  <div class="card"><h3>🎯 Mission objective</h3><p>Lari melewati <b>7 gerbang keputusan</b>, jaga empat meter (Sales, PNL, Mutu, Distribusi), dan capai minimal <b>5 keputusan tajam</b>.</p>
+  <h3>📜 Peraturan</h3><ol class="rl"><li>Geser layar ke kiri atau kanan, atau tekan tombol ◀ ▶ (atau panah keyboard), untuk pindah lajur.</li><li>Ambil koin 🪙 (+10 poin). Menabrak red flag ⏳ 🏷️ 📦 membuat poin −15 dan meter Mutu turun. Perisai 🛡️ menahan satu tabrakan.</li><li>Gerbang keputusan akan muncul. Pilih dengan berada di lajurnya sebelum gerbang tiba, atau tap pilihan lalu tekan Kunci pilihan.</li><li>Keputusan tajam +100, cukup aman +40, berisiko −25. Tajam beruntun memberi bonus combo.</li><li>Hint tersedia 1 kali per gerbang dan biayanya −20 poin.</li><li>Musik bisa dimatikan lewat tombol di atas.</li></ol></div>
+  <button class="btn pk" id="st">Aku siap, lari! 🚀</button>`);
+  $("#st").onclick=()=>{sfx.go();start()};
+}
+
+/* ===== 3. CORE: ENDLESS RUNNER + GERBANG KEPUTUSAN ===== */
+const LN=["Kiri","Tengah","Kanan"],AR=["◀","▲","▶"],OB=["⏳","🏷️","📦"],LC=["#29D8F2","#FFD93D","#FF4FA3"];
+sfx.coin=()=>P([988,1319],.04,"square",.08,.22);
+sfx.mv=()=>P([300],0,"triangle",.05,.12);
+let G,raf,ctx,cw,ch,last,keyH;
+const rh=t=>(0.1+0.42*t)*cw,Y=t=>ch*0.2+ch*0.8*t,S=t=>0.12+0.88*t,LX=(l,t)=>cw/2+(l-1)*rh(t)*0.66;
+function start(){
+  n=0;pts=0;streak=0;maxS=0;sharp=0;hints=0;coins=0;hits=0;mt={s:50,p:50,m:50,d:50};log=[];route="";
+  view(`<div class="hud"><div class="r1"><span class="chip" id="pt">⭐ 0</span><span class="chip hot" id="cb" hidden></span>${muteBtn()}</div><div class="r2"><div class="bar"><i id="pb" style="width:0%"></i></div><b id="pp">0%</b></div>${mets()}</div><div class="cv"><canvas id="cv"></canvas></div><div id="panel"></div>`);
+  const cv=$("#cv"),w=cv.parentElement.clientWidth,dpr=Math.min(2,window.devicePixelRatio||1);
+  cw=w;ch=Math.round(Math.min(cw>500?440:380,Math.max(260,window.innerHeight*.42)));
+  cv.width=w*dpr;cv.height=ch*dpr;cv.style.width=w+"px";cv.style.height=ch+"px";
+  ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+  G={px:1,tl:1,items:[],scroll:0,ph:"run",id:"1",tm:0,sp:0,cd:0,sh:false,gate:null,hu:0};
+  let sx=0;
+  cv.onpointerdown=e=>{sx=e.clientX};
+  cv.onpointerup=e=>{const d=e.clientX-sx;if(Math.abs(d)>25)mv(d>0?1:-1)};
+  document.removeEventListener("keydown",keyH);
+  keyH=e=>{if(e.key==="ArrowLeft")mv(-1);if(e.key==="ArrowRight")mv(1)};
+  document.addEventListener("keydown",keyH);
+  panelRun();
+  last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);
+}
+function mv(d){
+  if(!G||(G.ph!=="run"&&G.ph!=="gate"))return;
+  const o=G.tl;G.tl=Math.max(0,Math.min(2,G.tl+d));if(o!==G.tl)sfx.mv();hl();
+}
+function hl(){document.querySelectorAll(".opt").forEach((o,k)=>o.classList.toggle("on",k===G.tl))}
+function hudUpd(){
+  const p=Math.round(n/7*100);
+  $("#pt").textContent="⭐ "+pts;
+  const cb=$("#cb");cb.hidden=streak<2;cb.textContent="🔥 Combo x"+streak;
+  $("#pb").style.width=p+"%";$("#pp").textContent=p+"%";
+  Object.keys(Mt).forEach(k=>{$("#m_"+k).style.width=mt[k]+"%"});
+}
+function panelRun(){
+  const c=SC[G.id];
+  $("#panel").innerHTML=`<div class="card"><p class="qn">Menuju ${c.tm} · ${c.k}${route?` · ${route}`:""}</p><p><b>Lari dulu!</b> Geser lajur untuk menghindari red flag ⏳ 🏷️ 📦 dan ambil koin 🪙. Gerbang keputusan akan muncul sebentar lagi.</p></div><div class="row"><button class="btn sm" id="bl">◀ Kiri</button><button class="btn sm" id="br">Kanan ▶</button></div>`;
+  $("#bl").onclick=()=>mv(-1);$("#br").onclick=()=>mv(1);
+}
+function panelGate(){
+  const c=SC[G.id];
+  $("#panel").innerHTML=`<div class="card"><p class="qn">Gerbang ${n+1} dari 7 · ${c.k}${route?` · ${route}`:""}</p><div class="bub"><span class="av">${c.at}</span><div><b>${c.who}</b><p>${c.say}</p></div></div></div>
+  <p class="ask">Berdiri di lajur pilihanmu sebelum gerbang tiba!</p>
+  <div class="opts">${c.ch.map((x,j)=>`<button class="opt" data-j="${j}"><span class="lt">${AR[j]}</span><span><b>${LN[j]}:</b> ${x.t}</span></button>`).join("")}</div>
+  <div class="row"><button class="hb" id="hb">💡 Hint (−20 poin)</button><button class="btn sm" id="lock">Kunci pilihan ⚡</button></div><div id="hbx"></div>`;
+  document.querySelectorAll(".opt").forEach(o=>o.onclick=()=>{G.tl=+o.dataset.j;sfx.mv();hl()});
+  $("#hb").onclick=()=>{
+    if(G.hu)return;G.hu=1;hints++;pts=Math.max(0,pts-20);sfx.hint();hudUpd();$("#hb").disabled=true;
+    $("#hbx").innerHTML=`<div class="card hint"><b>💡 Hint:</b> ${c.h}</div>`;
+  };
+  $("#lock").onclick=()=>{if(G.gate)G.gate.t=.85};
+  hl();
+}
+function loop(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(G.ph==="run"||G.ph==="gate")upd(dt);
+  draw();raf=requestAnimationFrame(loop);
+}
+function coinLine(){const l=Math.floor(Math.random()*3);for(let i=0;i<3;i++)G.items.push({k:"coin",l,t:-i*.09,e:"🪙"})}
+function spawn(){
+  const r=Math.random(),l=Math.floor(Math.random()*3);
+  if(r<.5)G.items.push({k:"ob",l,t:0,e:OB[Math.floor(Math.random()*3)]});
+  else if(r<.58)G.items.push({k:"sh",l,t:0,e:"🛡️"});
+  else coinLine();
+}
+function upd(dt){
+  G.px+=(G.tl-G.px)*Math.min(1,dt*12);G.rt=(G.rt||0)+dt;
+  G.cd=Math.max(0,G.cd-dt);G.tm+=dt;G.sp-=dt;
+  const run=G.ph==="run",v=run?.5:.1;
+  G.scroll=(G.scroll+dt*(run?.35:.1))%1;
+  if(run){
+    if(G.sp<=0){G.sp=.85;spawn()}
+    if(G.tm>=6.5){
+      G.ph="gate";G.items=G.items.filter(i=>i.k==="coin");
+      G.gate={k:"gate",t:0};G.items.push(G.gate);G.sp=1;G.hu=0;panelGate();
+    }
+  }else if(G.sp<=0){G.sp=1.1;coinLine()}
+  G.items.forEach(it=>{it.t+=dt*(it.k==="gate"?.09:v)});
+  G.items.forEach(it=>{
+    if(it.k==="gate"||it.x||it.t<.8||it.t>.92||Math.abs(G.px-it.l)>.55)return;
+    it.x=1;
+    if(it.k==="coin"){pts+=10;coins++;sfx.coin()}
+    else if(it.k==="sh"){G.sh=true;sfx.badge()}
+    else if(G.cd<=0){
+      if(G.sh){G.sh=false;sfx.hint()}
+      else{hits++;pts=Math.max(0,pts-15);mt.m=Math.max(0,mt.m-4);sfx.no();G.cd=1.2}
+    }
+    hudUpd();
+  });
+  G.items=G.items.filter(it=>it.t<1.15&&!it.x);
+  if(G.gate&&G.gate.t>=.85){
+    const j=Math.max(0,Math.min(2,Math.round(G.px)));
+    G.ph="fb";G.gate=null;G.items=[];pick(SC[G.id],j);
+  }
+}
+const K=()=>Math.min(1.6,Math.max(1,cw/360));
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function coin(c,x,y,r,t){
+  const w=Math.max(.3,Math.abs(Math.cos(t)))*r;
+  c.fillStyle="#FFB800";c.strokeStyle="#7A4B00";c.lineWidth=Math.max(1.5,r*.14);
+  c.beginPath();c.ellipse(x,y,w,r,0,0,7);c.fill();c.stroke();
+  c.fillStyle="#FFE066";c.beginPath();c.ellipse(x,y,w*.72,r*.72,0,0,7);c.fill();
+  if(w>r*.55){c.fillStyle="#A86400";c.font=`800 ${r*1.1}px Poppins,sans-serif`;c.fillText("B",x,y+r*.06)}
+}
+function person(c,x,y,h,t,lean){
+  const u=h/100,sw=Math.sin(t),bob=Math.abs(Math.cos(t))*3*u,hy=-42*u;
+  c.save();c.translate(x,y);
+  c.fillStyle="rgba(0,0,0,.35)";c.beginPath();c.ellipse(0,0,26*u,6*u,0,0,7);c.fill();
+  c.translate(0,-bob);c.rotate(lean*.12);c.lineCap="round";c.lineJoin="round";
+  [[-1,sw],[1,-sw]].forEach(([d,s])=>{
+    const a=s*.75,lift=Math.max(0,-s)*9*u,L=42*u,hx=d*7*u,
+      kx=hx+Math.sin(a)*L*.5,ky=hy+Math.cos(a)*L*.5-lift*.5,fx=hx+Math.sin(a)*L*.92,fy=hy+Math.cos(a)*L-lift;
+    c.strokeStyle="#1F2A56";c.lineWidth=11*u;c.beginPath();c.moveTo(hx,hy);c.lineTo(kx,ky);c.lineTo(fx,fy);c.stroke();
+    c.fillStyle="#fff";c.strokeStyle="#1A1033";c.lineWidth=1.6*u;c.beginPath();c.ellipse(fx,fy,8.5*u,5*u,0,0,7);c.fill();c.stroke();
+  });
+  [[-1,-sw],[1,sw]].forEach(([d,s])=>{
+    const sx=d*17*u,sy=-72*u,ex=sx+d*8*u,ey=sy+16*u+s*7*u,hx=sx+d*5*u,hy2=sy+29*u+s*13*u-Math.abs(s)*5*u;
+    c.strokeStyle="#E0338A";c.lineWidth=10*u;c.beginPath();c.moveTo(sx,sy);c.lineTo(ex,ey);c.stroke();
+    c.strokeStyle="#F2C29B";c.lineWidth=7*u;c.beginPath();c.moveTo(ex,ey);c.lineTo(hx,hy2);c.stroke();
+    c.fillStyle="#F2C29B";c.beginPath();c.arc(hx,hy2,4.5*u,0,7);c.fill();
+  });
+  c.fillStyle="#FF4FA3";c.strokeStyle="#1A1033";c.lineWidth=2*u;rr(c,-17*u,-78*u,34*u,40*u,10*u);c.fill();c.stroke();
+  c.fillStyle="#fff";c.fillRect(-16*u,-48*u,32*u,6*u);
+  c.fillStyle="#1A1033";c.font=`800 ${9*u}px Poppins,sans-serif`;c.fillText("BFM",0,-62*u);
+  c.fillStyle="#F2C29B";c.fillRect(-4*u,-82*u,8*u,6*u);
+  c.fillStyle="#2B2018";c.strokeStyle="#1A1033";c.lineWidth=2*u;c.beginPath();c.arc(0,-90*u,11*u,0,7);c.fill();c.stroke();
+  c.fillStyle="#F2C29B";c.beginPath();c.arc(-11*u,-89*u,2.6*u,0,7);c.arc(11*u,-89*u,2.6*u,0,7);c.fill();
+  c.fillStyle="#fff";c.beginPath();c.ellipse(0,-94*u,12.5*u,9*u,0,Math.PI,2*Math.PI);c.fill();c.stroke();
+  c.fillStyle="#29D8F2";c.fillRect(-12.5*u,-95*u,25*u,3.2*u);
+  c.restore();
+}
+function draw(){
+  const W=cw,H=ch,c=ctx;
+  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,"#1A0B3D");g.addColorStop(.35,"#5B21B6");g.addColorStop(1,"#FF4FA3");
+  c.fillStyle=g;c.fillRect(0,0,W,H);
+  c.fillStyle="#120A2B";
+  c.beginPath();c.moveTo(0,0);c.lineTo(W/2-rh(0),Y(0));c.lineTo(W/2-rh(1),H);c.lineTo(0,H);c.fill();
+  c.beginPath();c.moveTo(W,0);c.lineTo(W/2+rh(0),Y(0));c.lineTo(W/2+rh(1),H);c.lineTo(W,H);c.fill();
+  c.fillStyle="#2B1B5E";
+  c.beginPath();c.moveTo(W/2-rh(0),Y(0));c.lineTo(W/2+rh(0),Y(0));c.lineTo(W/2+rh(1),H);c.lineTo(W/2-rh(1),H);c.fill();
+  for(let i=0;i<10;i++){const t=(i/10+G.scroll)%1;c.fillStyle="rgba(255,255,255,.07)";c.fillRect(W/2-rh(t),Y(t),2*rh(t),Math.max(1,Y(t+.03)-Y(t)))}
+  for(let i=0;i<8;i++){
+    const t=(i/8+G.scroll)%1,r=7*S(t);c.fillStyle="#FFD93D";
+    c.beginPath();c.arc(W/2-rh(t)*1.1,Y(t),r,0,7);c.fill();
+    c.beginPath();c.arc(W/2+rh(t)*1.1,Y(t),r,0,7);c.fill();
+  }
+  c.lineWidth=2;c.setLineDash([10,10]);c.lineDashOffset=-G.scroll*200;c.strokeStyle="rgba(200,255,61,.55)";
+  [-.33,.33].forEach(k=>{c.beginPath();c.moveTo(W/2+k*rh(0),Y(0));c.lineTo(W/2+k*rh(1),H);c.stroke()});
+  c.setLineDash([]);c.strokeStyle="#29D8F2";c.lineWidth=3;
+  [-1,1].forEach(k=>{c.beginPath();c.moveTo(W/2+k*rh(0),Y(0));c.lineTo(W/2+k*rh(1),H);c.stroke()});
+  c.textAlign="center";c.textBaseline="middle";
+  G.items.filter(it=>it.t>=0).sort((a,b)=>a.t-b.t).forEach(it=>{
+    const s=S(it.t),y=Y(it.t),k=K();
+    if(it.k==="gate"){
+      const h=H*.2*s+8,bw=rh(it.t);
+      c.fillStyle="#fff";c.fillRect(W/2-bw,y-h/2-7*s-3,2*bw,5*s+3);
+      c.lineJoin="round";
+      for(let l=0;l<3;l++){
+        const x=LX(l,it.t),w=bw*.62,sel=Math.round(G.px)===l;
+        c.fillStyle=LC[l];c.fillRect(x-w/2,y-h/2,w,h);
+        c.lineWidth=sel?5:2;c.strokeStyle=sel?"#fff":"#1A1033";c.strokeRect(x-w/2,y-h/2,w,h);
+        c.font=`800 ${Math.max(13,21*s*k)}px Poppins,sans-serif`;
+        let tx=AR[l]+" "+LN[l].toUpperCase();if(c.measureText(tx).width>w*.92)tx=AR[l];
+        c.lineWidth=4;c.strokeStyle="#fff";c.strokeText(tx,x,y);c.fillStyle="#1A1033";c.fillText(tx,x,y);
+      }
+    }else if(it.k==="coin"){coin(c,LX(it.l,it.t),y,15*s*k+3,(G.rt||0)*6+it.l)}
+    else{
+      const x=LX(it.l,it.t),r=24*s*k+6;
+      c.fillStyle=it.k==="ob"?"#fff":"#29D8F2";c.strokeStyle=it.k==="ob"?"#E11D48":"#1A1033";c.lineWidth=Math.max(2,r*.12);
+      c.beginPath();c.arc(x,y,r,0,7);c.fill();c.stroke();
+      c.font=`${r*1.25}px system-ui,"Apple Color Emoji","Segoe UI Emoji"`;c.fillText(it.e,x,y+r*.05);
+    }
+  });
+  const k=K(),px=LX(G.px,.85),py=Y(.85)+8*k,h=92*S(.85)*k;
+  if(!(G.cd>0&&Math.floor(G.cd*10)%2))person(c,px,py,h,(G.rt||0)*11,G.tl-G.px);
+  if(G.sh){c.strokeStyle="#29D8F2";c.lineWidth=3;c.beginPath();c.arc(px,py-h*.5,h*.62,0,7);c.stroke()}
+  if(G.ph==="gate"&&G.gate){
+    const p=Math.min(1,G.gate.t/.85),f=Math.max(14,17*k);
+    c.fillStyle="rgba(26,16,51,.78)";rr(c,W*.1,8,W*.8,f*2.2,10);c.fill();
+    c.fillStyle="#fff";c.font=`800 ${f}px Poppins,sans-serif`;c.fillText("PILIH LAJURMU!",W/2,8+f*.8);
+    c.fillStyle="#C8FF3D";c.fillRect(W*.1+10,8+f*1.55,(W*.8-20)*p,5);
+  }
+}
+function pick(c,j){
+  const x=c.ch[j],ti=TI[x.ti];
+  let gain,bonus=0;
+  if(x.ti===2){
+    sharp++;streak++;maxS=Math.max(maxS,streak);
+    bonus=streak>=2?Math.min(streak-1,3)*20:0;gain=100+bonus;
+    streak>=3?sfx.combo():sfx.ok();
+  }else if(x.ti===1){streak=0;gain=40;sfx.hint()}
+  else{streak=0;gain=-Math.min(25,pts);sfx.no()}
+  pts+=gain;
+  Object.keys(x.fx).forEach(k=>{mt[k]=Math.max(0,Math.min(100,mt[k]+x.fx[k]))});
+  if(x.go){paths.add(x.go);route=x.go==="2a"?"Jalur A: produksi pulih":"Jalur B: truk menunggu"}
+  const best=c.ch.find(y=>y.ti===2).t;
+  log.push({k:c.k,t:x.t,ti:x.ti,r:x.r,l:c.l,best});
+  n++;hudUpd();
+  const nxt=x.go||NXT[G.id];
+  const chips=Object.keys(x.fx).map(k=>`<span class="chp">${Mt[k]} ${x.fx[k]>0?"+":""}${x.fx[k]}</span>`).join("");
+  $("#panel").innerHTML=`<div class="card fb ${ti.c}"><b>${ti.e} ${ti.n} · ${gain>0?"+":"−"}${Math.abs(gain)} poin${bonus?` (bonus combo +${bonus})`:""}</b><p><b>Lajur ${LN[j]}:</b> ${x.t}</p><p>${x.r}</p><div class="imp">${chips}</div><p><b>Pelajaran:</b> ${c.l}</p>${x.ti<2?`<p><b>Jalur yang lebih tajam:</b> ${best}</p>`:""}</div>${n===4?`<div class="card mid"><b>🌗 Lencana baru: Setengah Hari!</b></div>`:""}<button class="btn" id="nx">${n===7?"Lihat akhir cerita":"Lanjut berlari 🏃"}</button>`;
+  if(n===4)sfx.badge();
+  $("#nx").onclick=()=>{
+    sfx.clk();
+    if(n===7)return result();
+    G.id=nxt;G.ph="run";G.tm=0;G.sp=0;G.items=[];G.gate=null;panelRun();
+  };
+  $("#panel").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* ===== 4. POST-ACTION DEBRIEF ===== */
+function result(){
+  cancelAnimationFrame(raf);document.removeEventListener("keydown",keyH);
+  const acc=Math.round(sharp/7*100),won=sharp>=5;
+  const title=sharp>=5?"Lari yang Terarah":sharp>=3?"Lari yang Terengah-engah":"Lari yang Tersandung";
+  const story=sharp>=5?"17.30. Kamu sampai di garis akhir dengan napas teratur. Besok pagi semua tim tahu apa yang dikerjakan dan siapa PIC-nya."
+    :sharp>=3?"17.30. Kamu sampai di garis akhir, tapi beberapa isu masih menggantung. Besok masih ada yang harus dikejar."
+    :"17.30. Beberapa keputusan membuatmu tersandung, tapi kamu tetap sampai di akhir dan membawa jejak untuk dipelajari.";
+  const rf=won?`Mantap, ${esc(name)}! Kamu cepat sekaligus tajam. Pertahankan ritme ini.`
+    :`Larinya berat, ${esc(name)}, tapi tiap gerbang tadi meninggalkan pelajaran. Coba lagi dan ambil jalur lain. Kamu pasti bisa!`;
+  const got=[true,true,sharp>=5,maxS>=3,hints===0,paths.has("2a")&&paths.has("2b"),hits===0];
+  won?sfx.win():sfx.lose();
+  view(`${topbar()}<div class="card hero"><div class="scene">${won?"🏆":"💪"}</div><h2>${title}</h2><p>${story}</p><p><b>${rf}</b></p></div>
+  <div class="card mid"><h3>Hasil kamu</h3><div class="ring" style="background:conic-gradient(#C8FF3D ${acc}%,var(--dot) 0)"><div><b>${sharp}/7</b><small>keputusan tajam</small></div></div>
+  <div class="st"><div><b>⭐ ${pts}</b><span>Total poin</span></div><div><b>🔥 x${maxS}</b><span>Combo terbaik</span></div><div><b>🪙 ${coins}</b><span>Koin</span></div><div><b>${hits}</b><span>Tabrakan</span></div><div><b>${hints}</b><span>Hint dipakai</span></div><div><b>${route.startsWith("Jalur A")?"A":"B"}</b><span>Jalur pagi</span></div></div>
+  ${mets()}<p class="note">Target: minimal 5 keputusan tajam. ${won?"Tercapai!":"Belum tercapai, tapi kamu sudah dekat."}</p></div>
+  <div class="card"><h3>🏅 Lencana</h3><div class="bg">${BADGES.map((b,j)=>`<div class="bd${got[j]?"":" lk"}"><span>${b.e}</span><b>${b.n}</b><small>${got[j]?"Didapat":b.d}</small></div>`).join("")}</div></div>
+  <div class="card"><h3>📋 Jejak keputusanmu</h3><p class="note">Tap tiap gerbang untuk melihat konsekuensi dan pembahasannya.</p>${log.map((l,k)=>`<details><summary>${TI[l.ti].e} ${k+1}. ${l.k}</summary><p><b>Pilihanmu:</b> ${l.t}</p><p>${l.r}</p><p><b>Pelajaran:</b> ${l.l}</p>${l.ti<2?`<p><b>Jalur yang lebih tajam:</b> ${l.best}</p>`:""}</details>`).join("")}</div>
+  <button class="btn pk" id="again">Lari lagi 🔁</button>`);
+  $("#again").onclick=()=>{sfx.go();brief()};
+}
+gate();
+})();
+</script>
+</body>
+</html>
